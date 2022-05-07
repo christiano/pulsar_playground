@@ -1,6 +1,5 @@
 package dev.christiano.app;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dev.christiano.model.User;
