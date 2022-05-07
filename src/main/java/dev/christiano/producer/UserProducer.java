@@ -16,15 +16,17 @@ public class UserProducer {
                     .build();
 
             Producer<User> producer = client.newProducer(JSONSchema.of(User.class))
-                    .topic("my-topic")
+                    .topic("users-topic")
                     .create();
 
             producer.send(user);
+            producer.close();
+            client.close();
 
             return ("Message sent ");
         } catch (PulsarClientException e) {
             return ("Error " + e);
-        }
+        } 
     }
 
 }
