@@ -3,6 +3,9 @@ package dev.christiano.consumer;
 import org.apache.pulsar.client.api.Consumer;
 import org.apache.pulsar.client.api.Message;
 import org.apache.pulsar.client.api.PulsarClient;
+import org.apache.pulsar.client.impl.schema.JSONSchema;
+
+import dev.christiano.model.User;
 
 public class FakeUserConsumer {
 
@@ -13,20 +16,22 @@ public class FakeUserConsumer {
                     .serviceUrl("pulsar://localhost:6650")
                     .build();
 
-            Consumer consumer = client.newConsumer()
+            Consumer<User> consumer = client.newConsumer(JSONSchema.of(User.class))
                     .topic("users-topic")
                     .subscriptionName("javacli")
                     .subscribe();
 
             while (true) {
-                Message msg = consumer.receive();
+                Message<User> msg = consumer.receive();
 
                 try {
-                    System.out.println("Message " + new String(msg.getData()));
+                    // System.out.println("Message " + new String(msg.getData()));
+                    
+                    System.out.println(msg.getValue().toString());
                     consumer.acknowledge(msg);
                 } catch (Exception e) {
                     consumer.negativeAcknowledge(msg);
-                    System.out.println("Error");
+                    System.out.println("Error " + e.getMessage());
                 }
             }
 

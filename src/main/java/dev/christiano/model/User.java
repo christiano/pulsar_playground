@@ -6,12 +6,16 @@ public class User {
     private String city;
     private String country;
 
+    public User() {
+    }
+
     public User(String firstName, String lastName, String city, String country) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.city = city;
         this.country = country;
-    }
+    }    
+
 
     public String getFirstName() {
         return firstName;
