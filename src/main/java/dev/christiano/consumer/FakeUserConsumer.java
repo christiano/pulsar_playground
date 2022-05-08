@@ -10,13 +10,13 @@ public class FakeUserConsumer {
 
         try {
             PulsarClient client = PulsarClient.builder()
-                .serviceUrl("pulsar://localhost:6650")
-                .build();
+                    .serviceUrl("pulsar://localhost:6650")
+                    .build();
 
             Consumer consumer = client.newConsumer()
-                .topic("users-topic")
-                .subscriptionName("javacli")
-                .subscribe();
+                    .topic("users-topic")
+                    .subscriptionName("javacli")
+                    .subscribe();
 
             while (true) {
                 Message msg = consumer.receive();
@@ -30,11 +30,10 @@ public class FakeUserConsumer {
                 }
             }
 
-            
-        } catch (Exception e ) {
+        } catch (Exception e) {
             System.out.println("Error with the client");
         }
 
     }
-    
+
 }
